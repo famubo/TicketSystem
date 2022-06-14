@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/ticket")
 public class TicketController {
     @Autowired
+
     TicketService ticketService;
 
     @Autowired
@@ -55,11 +56,11 @@ public class TicketController {
     }
 
     @GetMapping({"/reservationcancel"})
-    public ModelAndView reservationcancel(@RequestParam int flightid, @RequestParam int userid, Model model, HttpSession session) {
+    public ModelAndView reservationcancel(@RequestParam int cinemaid, @RequestParam int userid, Model model, HttpSession session) {
         if (session.getAttribute("user") == null) {
             return new ModelAndView("redirect:/user/signin");
         } else {
-            ticketService.deleteTicket(flightid);
+            ticketService.deleteTicket(cinemaid);
             return new ModelAndView("redirect:/user/mytickets?userid=" + userid);
         }
     }
